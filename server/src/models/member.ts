@@ -6,6 +6,11 @@ const memberSchema = new Schema({
         type: String, 
         required: true
     },
+    CIN: {
+        type: String,
+        required: true,
+        unique: true
+    },
     email: { 
         type: String,
         required: true, 
@@ -20,6 +25,7 @@ const memberSchema = new Schema({
 interface Member extends Document {
     _id: mongoose.Types.ObjectId,
     fullName: string,
+    CIN: string,
     email: string,
     created_at?: Date,
     updated_at?: Date 

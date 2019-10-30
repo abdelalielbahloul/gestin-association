@@ -8,6 +8,11 @@ const memberSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    CIN: {
+        type: String,
+        required: true,
+        unique: true
+    },
     email: {
         type: String,
         required: true,

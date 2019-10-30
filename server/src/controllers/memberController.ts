@@ -1,7 +1,6 @@
 import { Member } from "../models/member"
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
-import { NextFunction } from 'connect';
 
 class MemeberController {
     
@@ -102,6 +101,9 @@ class MemeberController {
             .then( result => {
                 try {
                     console.log(result);
+                    res.json({
+                        message:"Updated successufully!"
+                    })
                     
                 } catch (error) {
                     console.log(error);
@@ -118,10 +120,13 @@ class MemeberController {
      */
     public async delete(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        await Member.findByIdAndRemove({ _id: id}).exec()
+        await Member.findByIdAndRemove({ _id: id }).exec()
             .then( result => {
                 try {
                     console.log(result);
+                    res.json({
+                        message: "Memeber deleted!"
+                    });
                 } catch (error) {
                     console.log(error);
                     

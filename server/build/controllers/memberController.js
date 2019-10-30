@@ -103,6 +103,9 @@ class MemeberController {
                 .then(result => {
                 try {
                     console.log(result);
+                    res.json({
+                        message: "Updated successufully!"
+                    });
                 }
                 catch (error) {
                     console.log(error);
@@ -123,6 +126,9 @@ class MemeberController {
                 .then(result => {
                 try {
                     console.log(result);
+                    res.json({
+                        message: "Memeber deleted!"
+                    });
                 }
                 catch (error) {
                     console.log(error);
