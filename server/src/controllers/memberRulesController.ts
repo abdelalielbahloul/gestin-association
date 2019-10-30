@@ -95,7 +95,28 @@ class MemberRulesController {
      * delete a rule
      */
     public async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
-        
+        const id = req.params.id;
+        MemberRule.deleteOne({_id: id }).exec()
+            .then( result=> {
+                console.log(result);
+                
+                try {
+                    res.json({
+                        messsage: "Rulewas deleted"
+                    })
+                } catch (error) {
+                    console.log(error);
+                    
+                    res.sendStatus(500);
+                    res.end();
+                }
+            })
+            .catch( err => {
+                console.log(err);
+                
+                res.sendStatus(500);
+                res.end();
+            })
     }
 }
 
