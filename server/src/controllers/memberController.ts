@@ -1,6 +1,7 @@
 import { Member } from "../models/member"
 import { Request, Response } from "express";
 import mongoose from "mongoose";
+import { NextFunction } from 'connect';
 
 class MemeberController {
     
@@ -37,7 +38,7 @@ class MemeberController {
         });
         await member.save()
             .then( result => {
-                console.log(result);
+                // console.log(result);
                 
                 res.json({
                     msg: "Member created successfully!"
@@ -46,6 +47,90 @@ class MemeberController {
                 console.log(err);
                 res.json(err);
                 res.end();
+            })
+    }
+    /**
+     * get one member
+     */
+    public async show(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        await Member.findById({ _id: id }).select('_id fullName email created_at updated_at').exec()
+            .then( result => {
+                // console.log(result);
+                
+                res.json(result);
+            })
+            .catch( err => {
+                // console.log(err);
+                
+                res.json(err);
+                res.end();
+            });
+    }
+    /**
+     * update one member
+     */
+    public async update(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        const updatedMember = req.body;
+        await Member.updateOne({ _id: id }, { $set: updatedMember}).exec()
+        .then( result => {
+            
+            try {
+                console.log(result);
+                res.json({
+                    message: "Member updated !",
+                })
+            } catch (error) {
+                console.log(error);
+                res.json(error)
+            }
+        })
+        .catch( err => {
+            console.log(err);
+            res.json(err);
+            res.end();
+        });
+    }
+    /**
+     * edit one field of a member
+     */
+    public async edit(req: Request, res:Response, next: NextFunction): Promise<void> {
+        const id = req.params.id;
+        const updatedField = req.body;
+        await Member.updateOne({ _id: id}, {$set: updatedField}).exec()
+            .then( result => {
+                try {
+                    console.log(result);
+                    
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            })
+            .catch( err => {
+                console.log(err);
+                
+            })
+    }
+    /**
+     * delete one member
+     */
+    public async delete(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        await Member.findByIdAndRemove({ _id: id}).exec()
+            .then( result => {
+                try {
+                    console.log(result);
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+                
+            })
+            .catch( err => {
+                console.log(err);
+                
             })
     }
     

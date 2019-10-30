@@ -12,6 +12,10 @@ class MemberRoute {
     config(): void {
         this.router.get('/', memberController.index);
         this.router.post('/', memberController.create);
+        this.router.get('/:id', memberController.show);
+        this.router.put('/:id', memberController.update);
+        this.router.patch('/:id', memberController.edit);
+        this.router.delete('/:id', memberController.delete);
     }
 }
 

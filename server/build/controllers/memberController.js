@@ -36,7 +36,7 @@ class MemeberController {
             });
             yield member.save()
                 .then(result => {
-                console.log(result);
+                // console.log(result);
                 res.json({
                     msg: "Member created successfully!"
                 });
@@ -44,6 +44,92 @@ class MemeberController {
                 console.log(err);
                 res.json(err);
                 res.end();
+            });
+        });
+    }
+    /**
+     * get one member
+     */
+    show(req, res) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield member_1.Member.findById({ _id: id }).select('_id fullName email created_at updated_at').exec()
+                .then(result => {
+                // console.log(result);
+                res.json(result);
+            })
+                .catch(err => {
+                // console.log(err);
+                res.json(err);
+                res.end();
+            });
+        });
+    }
+    /**
+     * update one member
+     */
+    update(req, res) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const updatedMember = req.body;
+            yield member_1.Member.updateOne({ _id: id }, { $set: updatedMember }).exec()
+                .then(result => {
+                try {
+                    console.log(result);
+                    res.json({
+                        message: "Member updated !",
+                    });
+                }
+                catch (error) {
+                    console.log(error);
+                    res.json(error);
+                }
+            })
+                .catch(err => {
+                console.log(err);
+                res.json(err);
+                res.end();
+            });
+        });
+    }
+    /**
+     * edit one field of a member
+     */
+    edit(req, res, next) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const updatedField = req.body;
+            yield member_1.Member.updateOne({ _id: id }, { $set: updatedField }).exec()
+                .then(result => {
+                try {
+                    console.log(result);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            })
+                .catch(err => {
+                console.log(err);
+            });
+        });
+    }
+    /**
+     * delete one member
+     */
+    delete(req, res) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield member_1.Member.findByIdAndRemove({ _id: id }).exec()
+                .then(result => {
+                try {
+                    console.log(result);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            })
+                .catch(err => {
+                console.log(err);
             });
         });
     }
