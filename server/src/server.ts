@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import dotenv  from "dotenv";
 import morgan from "morgan";
 import bodyParser from 'body-parser';
@@ -37,6 +37,19 @@ class Server {
         this.app.use(morgan('dev'));
         this.app.use(bodyParser.urlencoded({ extended: false}));
         this.app.use(bodyParser.json());
+        this.app.use( (req: Request, res:Response, next:NextFunction) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header(
+                'Access-Control-Allow-Headers',
+                'origin, X-Requested-With, Content-Type, Accept, Authorization'
+            );
+            if(req.method === 'OPTIONS'){
+                res.header('Access-Control-Allow-Methods', 'GET, PUT, DELETE, PATCH, POST');
+                return res.status(200).json({});
+            }
+
+            next();
+        });
 
     }
     routes(): void {

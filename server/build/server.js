@@ -34,6 +34,15 @@ class Server {
         this.app.use(morgan_1.default('dev'));
         this.app.use(body_parser_1.default.urlencoded({ extended: false }));
         this.app.use(body_parser_1.default.json());
+        this.app.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With, Content-Type, Accept, Authorization');
+            if (req.method === 'OPTIONS') {
+                res.header('Access-Control-Allow-Methods', 'GET, PUT, DELETE, PATCH, POST');
+                return res.status(200).json({});
+            }
+            next();
+        });
     }
     routes() {
         this.app.use('/members', memberRoutes_1.default);
