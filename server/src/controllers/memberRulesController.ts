@@ -9,7 +9,7 @@ class MemberRulesController {
      */
     public async index(req: Request, res: Response, next: NextFunction): Promise<void> {
         const id = req.params.id;
-        await MemberRule.findById({ _id: id }).exec()
+        await MemberRule.findById({ _id: id }).select('_id name').exec()
             .then( result => {
                 console.log(result);
                 try {
@@ -37,9 +37,16 @@ class MemberRulesController {
             .then( result => {
                 console.log(res);
                 
+               try {
                 res.json({
                     message: "a new rule was created!"
                 })
+               } catch (error) {
+                   console.log(error);
+                   
+                   res.sendStatus(500);
+                   res.end();
+               }
             })
             .catch( err => {
                 console.log(err);
@@ -52,7 +59,25 @@ class MemberRulesController {
      * get one rule
      */
     public async show(req: Request, res: Response, next: NextFunction): Promise<void> {
-        
+        const id = req.params.id;
+        await MemberRule.findOne({ _id: id }).select('_id name ').exec()
+            .then(result => {
+                console.log(result);
+                
+                try {
+                    res.json(result);
+                    
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                
+                res.sendStatus(500);
+                res.end();
+            });
     }
     /**
      * update a rule object

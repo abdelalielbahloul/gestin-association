@@ -10,7 +10,7 @@ class MemberRulesController {
     index(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            yield memberRule_1.MemberRule.findById({ _id: id }).exec()
+            yield memberRule_1.MemberRule.findById({ _id: id }).select('_id name').exec()
                 .then(result => {
                 console.log(result);
                 try {
@@ -40,9 +40,16 @@ class MemberRulesController {
             yield newRule.save()
                 .then(result => {
                 console.log(res);
-                res.json({
-                    message: "a new rule was created!"
-                });
+                try {
+                    res.json({
+                        message: "a new rule was created!"
+                    });
+                }
+                catch (error) {
+                    console.log(error);
+                    res.sendStatus(500);
+                    res.end();
+                }
             })
                 .catch(err => {
                 console.log(err);
@@ -56,6 +63,22 @@ class MemberRulesController {
      */
     show(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            yield memberRule_1.MemberRule.findOne({ _id: id }).select('_id name ').exec()
+                .then(result => {
+                console.log(result);
+                try {
+                    res.json(result);
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            })
+                .catch(err => {
+                console.log(err);
+                res.sendStatus(500);
+                res.end();
+            });
         });
     }
     /**
