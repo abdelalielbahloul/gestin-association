@@ -1,16 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts_mongoose_1 = require("ts-mongoose");
-const memberSchema = ts_mongoose_1.createSchema({
-    _id: ts_mongoose_1.Type.objectId(),
-    fullName: ts_mongoose_1.Type.string({ required: true }),
-    email: ts_mongoose_1.Type.string({
+const tslib_1 = require("tslib");
+const mongoose_1 = tslib_1.__importStar(require("mongoose"));
+const memberSchema = new mongoose_1.Schema({
+    _id: mongoose_1.default.Types.ObjectId,
+    fullName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
         required: true,
         unique: true,
         index: true,
         match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    }),
-    created_at: ts_mongoose_1.Type.date({ createdAt: true }),
-    updated_at: ts_mongoose_1.Type.date({ updatedAt: true })
+    },
+    created_at: { type: Date, createdAt: true },
+    updated_at: { type: Date, updatedAt: true }
 });
-exports.Member = ts_mongoose_1.typedModel('Member', memberSchema);
+exports.Member = mongoose_1.model('Member', memberSchema);
