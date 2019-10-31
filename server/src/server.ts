@@ -3,7 +3,10 @@ import dotenv  from "dotenv";
 import morgan from "morgan";
 import bodyParser from 'body-parser';
 import mongoose  from "mongoose";
+import cors from "cors";
+
 import memberRoutes from "./routes/memberRoutes";
+import memberRulesRoutes from "./routes/memberRulesRoutes";
 
 
 class Server {
@@ -37,6 +40,7 @@ class Server {
         this.app.use(morgan('dev'));
         this.app.use(bodyParser.urlencoded({ extended: false}));
         this.app.use(bodyParser.json());
+        this.app.use(cors())
         this.app.use( (req: Request, res:Response, next:NextFunction) => {
             res.header('Access-Control-Allow-Origin', '*');
             res.header(
@@ -54,6 +58,8 @@ class Server {
     }
     routes(): void {
         this.app.use('/members', memberRoutes);
+        this.app.use('/memberRules', memberRulesRoutes);
+
     }
     start(): void {
         const port = this.app.get('port');

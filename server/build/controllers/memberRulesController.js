@@ -9,8 +9,7 @@ class MemberRulesController {
      */
     index(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const id = req.params.id;
-            yield memberRule_1.MemberRule.findById({ _id: id }).select('_id name').exec()
+            yield memberRule_1.MemberRule.find().select('_id name').exec()
                 .then(result => {
                 console.log(result);
                 try {
@@ -86,6 +85,15 @@ class MemberRulesController {
      */
     update(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const updatedRule = req.body;
+            yield memberRule_1.MemberRule.updateOne({ _id: id }, { $set: updatedRule }).exec()
+                .then(result => {
+                console.log(result);
+            })
+                .catch(err => {
+                console.log(err);
+            });
         });
     }
     /**
@@ -101,7 +109,7 @@ class MemberRulesController {
     delete(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            memberRule_1.MemberRule.deleteOne({ _id: id }).exec()
+            yield memberRule_1.MemberRule.deleteOne({ _id: id }).exec()
                 .then(result => {
                 console.log(result);
                 try {

@@ -6,7 +6,9 @@ const dotenv_1 = tslib_1.__importDefault(require("dotenv"));
 const morgan_1 = tslib_1.__importDefault(require("morgan"));
 const body_parser_1 = tslib_1.__importDefault(require("body-parser"));
 const mongoose_1 = tslib_1.__importDefault(require("mongoose"));
+const cors_1 = tslib_1.__importDefault(require("cors"));
 const memberRoutes_1 = tslib_1.__importDefault(require("./routes/memberRoutes"));
+const memberRulesRoutes_1 = tslib_1.__importDefault(require("./routes/memberRulesRoutes"));
 class Server {
     constructor() {
         this.options = {
@@ -34,6 +36,7 @@ class Server {
         this.app.use(morgan_1.default('dev'));
         this.app.use(body_parser_1.default.urlencoded({ extended: false }));
         this.app.use(body_parser_1.default.json());
+        this.app.use(cors_1.default());
         this.app.use((req, res, next) => {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -46,6 +49,7 @@ class Server {
     }
     routes() {
         this.app.use('/members', memberRoutes_1.default);
+        this.app.use('/memberRules', memberRulesRoutes_1.default);
     }
     start() {
         const port = this.app.get('port');

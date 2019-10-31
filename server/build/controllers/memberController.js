@@ -8,7 +8,7 @@ class MemeberController {
      * get all memebers
      */
     index(req, res) {
-        member_1.Member.find().select('_id fullName email created_at updated_at')
+        member_1.Member.find().select('_id fullName email created_at updated_at').populate(' role ', ' _id name ')
             .exec()
             .then(docs => {
             // console.log(docs);
@@ -30,6 +30,8 @@ class MemeberController {
             const member = new member_1.Member({
                 _id: new mongoose_1.default.Types.ObjectId(),
                 fullName: req.body.fullName,
+                cin: req.body.cin,
+                role: req.body.role,
                 email: req.body.email,
                 created_at: new Date(),
                 updated_at: new Date()
@@ -53,7 +55,8 @@ class MemeberController {
     show(req, res) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            yield member_1.Member.findById({ _id: id }).select('_id fullName email created_at updated_at').exec()
+            yield member_1.Member.findById({ _id: id }).select('_id fullName email created_at updated_at').populate(' role ', ' _id name ')
+                .exec()
                 .then(result => {
                 // console.log(result);
                 res.json(result);

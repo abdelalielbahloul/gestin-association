@@ -8,8 +8,7 @@ class MemberRulesController {
      * get all rules
      */
     public async index(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const id = req.params.id;
-        await MemberRule.findById({ _id: id }).select('_id name').exec()
+        await MemberRule.find().select('_id name').exec()
             .then( result => {
                 console.log(result);
                 try {
@@ -83,7 +82,17 @@ class MemberRulesController {
      * update a rule object
      */
     public async update(req: Request, res: Response, next: NextFunction): Promise<void> {
-        
+        const id = req.params.id;
+        const updatedRule = req.body;
+        await MemberRule.updateOne({ _id: id }, { $set: updatedRule }).exec()
+            .then(result => {
+                console.log(result);
+                
+            })
+            .catch( err => {
+                console.log(err);
+                
+            })
     }
     /**
      * edit a field of object
@@ -96,7 +105,7 @@ class MemberRulesController {
      */
     public async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
         const id = req.params.id;
-        MemberRule.deleteOne({_id: id }).exec()
+        await MemberRule.deleteOne({_id: id }).exec()
             .then( result=> {
                 console.log(result);
                 

@@ -8,7 +8,7 @@ class MemeberController {
      * get all memebers
      */
     public index(req: Request,res: Response) {
-        Member.find().select('_id fullName email created_at updated_at')
+        Member.find().select('_id fullName email created_at updated_at').populate(' role ', ' _id name ')
             .exec()
             .then( docs => {
                 // console.log(docs);
@@ -28,9 +28,12 @@ class MemeberController {
      * create a new memeber
      */
     public async create(req: Request, res: Response): Promise<void> {
+        
         const member = new Member({
             _id: new mongoose.Types.ObjectId(),
             fullName: req.body.fullName,
+            cin: req.body.cin,
+            role: req.body.role,
             email: req.body.email,
             created_at: new Date(),
             updated_at: new Date()
@@ -53,7 +56,8 @@ class MemeberController {
      */
     public async show(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        await Member.findById({ _id: id }).select('_id fullName email created_at updated_at').exec()
+        await Member.findById({ _id: id }).select('_id fullName email created_at updated_at').populate(' role ', ' _id name ')
+            .exec()
             .then( result => {
                 // console.log(result);
                 
