@@ -11,6 +11,14 @@ class UserController {
             message: "hello it's login"
         });
     }
+    /**
+     * resgister of users
+     */
+    public register(req: Request, res: Response, next: NextFunction) {
+        res.json({
+            message: "Hello! it's register"
+        })
+    }
 }
 
 const userController = new UserController();

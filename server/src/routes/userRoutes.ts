@@ -9,6 +9,8 @@ class UserRoutes {
     }
     config(){
         this.router.post('/login', userController.login);
+        this.router.post('/register', userController.register);
+
     }
 }
 

@@ -10,6 +10,7 @@ class UserRoutes {
     }
     config() {
         this.router.post('/login', userController_1.default.login);
+        this.router.post('/register', userController_1.default.register);
     }
 }
 const userRouters = new UserRoutes();
