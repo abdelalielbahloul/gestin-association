@@ -7,12 +7,12 @@ class UserRoutes {
     constructor() {
         this.config();
     }
-    config(){
-        this.router.post('/login', userController.login);
+    config(): void {
+        this.router.get('/login', userController.login);
         this.router.post('/register', userController.register);
 
     }
 }
 
-const userRouters = new UserRoutes();
-export default userRouters.router;
+const userRoutes = new UserRoutes();
+export default userRoutes.router;

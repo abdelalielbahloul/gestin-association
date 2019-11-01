@@ -9,9 +9,9 @@ class UserRoutes {
         this.config();
     }
     config() {
-        this.router.post('/login', userController_1.default.login);
+        this.router.get('/login', userController_1.default.login);
         this.router.post('/register', userController_1.default.register);
     }
 }
-const userRouters = new UserRoutes();
-exports.default = userRouters.router;
+const userRoutes = new UserRoutes();
+exports.default = userRoutes.router;

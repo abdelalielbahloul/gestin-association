@@ -18,7 +18,7 @@ const userSchema = new mongoose_1.Schema({
         unique: true,
         index: true
     },
-    created_at: { createdAt: true },
-    updated_at: { updatedAt: true }
+    created_at: { type: Date, createdAt: true },
+    updated_at: { type: Date, updatedAt: true }
 });
 exports.User = mongoose_1.model('User', userSchema);

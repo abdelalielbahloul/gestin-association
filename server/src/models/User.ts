@@ -16,8 +16,8 @@ const userSchema = new Schema({
         unique: true, 
         index: true
     },
-    created_at: { createdAt: true },
-    updated_at: { updatedAt: true }
+    created_at: { type: Date, createdAt: true },
+    updated_at: { type: Date, updatedAt: true }
 })
 
 interface User extends Document {
