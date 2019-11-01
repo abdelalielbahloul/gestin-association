@@ -101,6 +101,27 @@ class MemberRulesController {
      */
     edit(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const updatedField = req.body;
+            yield memberRule_1.MemberRule.updateOne({ _id: id }, { $set: updatedField }).exec()
+                .then(result => {
+                console.log(result);
+                try {
+                    res.json({
+                        message: "Rule was updated successful!"
+                    });
+                }
+                catch (error) {
+                    console.log(error);
+                    res.sendStatus(500);
+                    res.end();
+                }
+            })
+                .catch(err => {
+                console.log(err);
+                res.sendStatus(500);
+                res.end();
+            });
         });
     }
     /**

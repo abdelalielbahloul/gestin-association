@@ -98,7 +98,29 @@ class MemberRulesController {
      * edit a field of object
      */
     public async edit(req: Request, res: Response, next: NextFunction): Promise<void> {
-        
+        const id = req.params.id;
+        const updatedField = req.body;
+        await MemberRule.updateOne({ _id: id }, { $set: updatedField }).exec()
+            .then( result => {
+                console.log(result);
+
+                try {
+                    res.json({
+                        message: "Rule was updated successful!"
+                    })  
+                } catch (error) {
+                    console.log(error);
+                    
+                    res.sendStatus(500)
+                    res.end()
+                }              
+            })
+            .catch( err => {
+                console.log(err);
+                
+                res.sendStatus(500)
+                res.end();
+            })
     }
     /**
      * delete a rule
