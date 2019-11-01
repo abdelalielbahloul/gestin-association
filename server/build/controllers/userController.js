@@ -48,7 +48,7 @@ class UserController {
                         .then(result => {
                         console.log(result);
                         res.json({
-                            msg: result
+                            msg: "Register successful!"
                         });
                         // res.json({
                         //     message: "Register successfully!"
