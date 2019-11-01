@@ -7,6 +7,7 @@ import cors from "cors";
 
 import memberRoutes from "./routes/memberRoutes";
 import memberRulesRoutes from "./routes/memberRulesRoutes";
+import userRoutes from "./routes/userRoutes";
 
 
 class Server {
@@ -59,6 +60,7 @@ class Server {
     routes(): void {
         this.app.use('/members', memberRoutes);
         this.app.use('/memberRules', memberRulesRoutes);
+        this.app.use('/user', userRoutes);
 
     }
     start(): void {

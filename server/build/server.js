@@ -9,6 +9,7 @@ const mongoose_1 = tslib_1.__importDefault(require("mongoose"));
 const cors_1 = tslib_1.__importDefault(require("cors"));
 const memberRoutes_1 = tslib_1.__importDefault(require("./routes/memberRoutes"));
 const memberRulesRoutes_1 = tslib_1.__importDefault(require("./routes/memberRulesRoutes"));
+const userRoutes_1 = tslib_1.__importDefault(require("./routes/userRoutes"));
 class Server {
     constructor() {
         this.options = {
@@ -50,6 +51,7 @@ class Server {
     routes() {
         this.app.use('/members', memberRoutes_1.default);
         this.app.use('/memberRules', memberRulesRoutes_1.default);
+        this.app.use('/user', userRoutes_1.default);
     }
     start() {
         const port = this.app.get('port');
