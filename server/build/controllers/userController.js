@@ -4,6 +4,7 @@ const tslib_1 = require("tslib");
 const mongoose_1 = tslib_1.__importDefault(require("mongoose"));
 const bcryptjs_1 = tslib_1.__importDefault(require("bcryptjs"));
 const User_1 = require("../models/User");
+const jsonwebtoken_1 = tslib_1.__importDefault(require("jsonwebtoken"));
 class UserController {
     /**
      * login an user users
@@ -16,23 +17,28 @@ class UserController {
                     .then(user => {
                     if (user.length < 1) {
                         res.json({
-                            message: "Auth failed1"
+                            message: "Auth failed"
                         });
                         res.end();
                         return;
                     }
                     bcryptjs_1.default.compare(req.body.password, user[0].password, (error, result) => {
-                        console.log(user);
                         if (error) {
                             res.json({
-                                message: "Auth failed2"
+                                message: "Auth failed"
                             });
                             res.end();
                             return;
                         }
                         if (result) {
+                            const payLoad = {
+                                email: user[0].email,
+                                userId: user[0].password
+                            };
+                            const token = jsonwebtoken_1.default.sign(payLoad, `${process.env.JWT_KEY}`, { expiresIn: "1H" });
                             return res.json({
-                                message: "Auth success!"
+                                message: "Auth success!",
+                                token: token
                             });
                         }
                     });
@@ -48,9 +54,6 @@ class UserController {
             catch (e) {
                 console.log(e);
             }
-            // res.json({
-            //     message: "hello it's login"
-            // });
         });
     }
     /**
@@ -84,7 +87,7 @@ class UserController {
                     });
                     user.save()
                         .then(result => {
-                        console.log(result);
+                        // console.log(result);
                         res.json({
                             msg: "Register successful!"
                         });

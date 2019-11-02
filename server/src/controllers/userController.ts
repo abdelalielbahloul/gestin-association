@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, response } from "express";
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 import { User } from '../models/User';
+import JWT from "jsonwebtoken";
 
 class UserController {
     
@@ -16,25 +17,29 @@ class UserController {
                 .then( user => {
                     if(user.length < 1){
                         res.json({
-                            message: "Auth failed1"
+                            message: "Auth failed"
                         });
                         res.end();
                         return   
                     }
-                    bcryptjs.compare( req.body.password, user[0].password, (error, result) => {
-                        console.log(user);
-                        
+                    bcryptjs.compare( req.body.password, user[0].password, (error, result) => {                     
                         if(error){
                             res.json({
-                                message: "Auth failed2"
+                                message: "Auth failed"
                             });
                             res.end();
                             return
                         }
                         if(result){
+                            const payLoad = {
+                                email: user[0].email,
+                                userId: user[0].password
+                            }
+                            const token = JWT.sign(payLoad, `${process.env.JWT_KEY}`, { expiresIn: "1H"});
 
                             return res.json({
-                                message: "Auth success!"
+                                message: "Auth success!",
+                                token: token
                             })
                         }
                     })
@@ -55,9 +60,6 @@ class UserController {
             console.log(e);
             
         }
-        // res.json({
-        //     message: "hello it's login"
-        // });
     }
     /**
      * resgister of users
@@ -92,7 +94,7 @@ class UserController {
     
                 user.save()
                     .then( result => {
-                        console.log(result);
+                        // console.log(result);
                         res.json({
                             msg: "Register successful!"
                         })
