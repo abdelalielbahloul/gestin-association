@@ -1,5 +1,5 @@
 export class Member {
-    _id?: Number;
+    _id?: String;
     fullName: String;
     cin: String;
     role: String;
