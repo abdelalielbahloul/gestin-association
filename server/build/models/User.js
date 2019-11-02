@@ -18,6 +18,10 @@ const userSchema = new mongoose_1.Schema({
         unique: true,
         index: true
     },
+    password: {
+        type: String,
+        required: true
+    },
     created_at: { type: Date, createdAt: true },
     updated_at: { type: Date, updatedAt: true }
 });

@@ -9,9 +9,55 @@ class UserController {
      * login an user users
      */
     public async login(req: Request, res: Response, next: NextFunction): Promise<void> {
-        res.json({
-            message: "hello it's login"
-        });
+        try {
+            const email = req.body.email;
+            
+            await User.find({ email: email }).exec()
+                .then( user => {
+                    if(user.length < 1){
+                        res.json({
+                            message: "Auth failed1"
+                        });
+                        res.end();
+                        return   
+                    }
+                    bcryptjs.compare( req.body.password, user[0].password, (error, result) => {
+                        console.log(user);
+                        
+                        if(error){
+                            res.json({
+                                message: "Auth failed2"
+                            });
+                            res.end();
+                            return
+                        }
+                        if(result){
+
+                            return res.json({
+                                message: "Auth success!"
+                            })
+                        }
+                    })
+
+                    
+                })
+                .catch( er => {
+                    console.log(er);
+
+                    res.sendStatus(500);
+                    res.end()
+                    return
+                    
+                })
+            // res.json(userLoged);
+
+        } catch (e) {
+            console.log(e);
+            
+        }
+        // res.json({
+        //     message: "hello it's login"
+        // });
     }
     /**
      * resgister of users

@@ -9,7 +9,7 @@ class UserRoutes {
         this.config();
     }
     config() {
-        this.router.get('/login', userController_1.default.login);
+        this.router.post('/login', userController_1.default.login);
         this.router.post('/register', userController_1.default.register);
     }
 }

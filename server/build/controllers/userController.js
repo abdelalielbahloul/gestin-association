@@ -10,9 +10,47 @@ class UserController {
      */
     login(req, res, next) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            res.json({
-                message: "hello it's login"
-            });
+            try {
+                const email = req.body.email;
+                yield User_1.User.find({ email: email }).exec()
+                    .then(user => {
+                    if (user.length < 1) {
+                        res.json({
+                            message: "Auth failed1"
+                        });
+                        res.end();
+                        return;
+                    }
+                    bcryptjs_1.default.compare(req.body.password, user[0].password, (error, result) => {
+                        console.log(user);
+                        if (error) {
+                            res.json({
+                                message: "Auth failed2"
+                            });
+                            res.end();
+                            return;
+                        }
+                        if (result) {
+                            return res.json({
+                                message: "Auth success!"
+                            });
+                        }
+                    });
+                })
+                    .catch(er => {
+                    console.log(er);
+                    res.sendStatus(500);
+                    res.end();
+                    return;
+                });
+                // res.json(userLoged);
+            }
+            catch (e) {
+                console.log(e);
+            }
+            // res.json({
+            //     message: "hello it's login"
+            // });
         });
     }
     /**
