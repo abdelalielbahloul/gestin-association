@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MembersService } from 'src/app/services/members.service';
+import { Member } from 'src/app/models/member';
 
 @Component({
   selector: 'app-members',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MembersComponent implements OnInit {
 
-  constructor() { }
+  members: Member[] = [];
+
+  constructor( private memberService: MembersService ) { }
 
   ngOnInit() {
+    this.getAll()
+  }
+
+  getAll(){
+    this.memberService._getAll()
+      .subscribe( res => {
+        this.members = res;        
+      })
   }
 
 }
