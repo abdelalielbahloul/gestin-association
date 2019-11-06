@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,7 @@ import { RegisterComponent } from './compenents/register/register.component';
 import { RolesComponent } from './compenents/roles/roles.component';
 import { NotFoundComponent } from './compenents/not-found/not-found.component';
 import { HomeComponent } from './compenents/home/home.component';
+import { SidebarComponent } from './compenents/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +25,12 @@ import { HomeComponent } from './compenents/home/home.component';
     RegisterComponent,
     RolesComponent,
     NotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule

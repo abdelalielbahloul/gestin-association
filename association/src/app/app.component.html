@@ -1,5 +1,36 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-navbar></app-navbar>
-<div class="container mt-4">
-  <router-outlet></router-outlet>
+<!-- <div class="container-fluid"> -->
+  <!-- <div class="row">
+      <div id="side-bar" class="col-md-2 text-center">
+          <app-side-bar></app-side-bar>
+        </div>
+        <div class="col-md-10 text-left">
+          <app-navbar></app-navbar>
+          <div class="container mt-4">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+  </div>
+   -->
+  
+<!-- </div> -->
+
+<div class="page-wrapper" [ngClass]="{'toggled' : getSideBarState}">
+    <app-sidebar></app-sidebar>
+    <main class="page-content">
+        <div class="container mt-4">
+          <div class="row">
+            <div class="col-md-1">
+
+            </div>
+            <div class="col-md-10">
+              <router-outlet></router-outlet>            
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+        <div class="overlay" (click)="toggleSidebar()" [ngClass]="{'show' : !getSideBarState}"></div>
+    </main>
+  
 </div>
+  
