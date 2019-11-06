@@ -9,6 +9,7 @@ import { Member } from 'src/app/models/member';
 })
 export class MembersComponent implements OnInit {
 
+  count: Number = 0;
   members: Member[] = [];
 
   constructor( private memberService: MembersService ) { }
@@ -20,7 +21,9 @@ export class MembersComponent implements OnInit {
   getAll(){
     this.memberService._getAll()
       .subscribe( res => {
-        this.members = res;        
+        this.members = res;   
+        this.count = this.members.length;
+             
       })
   }
 

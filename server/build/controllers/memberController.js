@@ -12,10 +12,7 @@ class MemeberController {
             .exec()
             .then(docs => {
             // console.log(docs);
-            res.json({
-                count: docs.length,
-                memberInfos: docs
-            });
+            res.json(docs);
         }).catch(err => {
             console.log(err);
             res.json(err);
