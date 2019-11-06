@@ -5,18 +5,24 @@
       </div>
 
       <div class="sidebar-profile">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" src="assets/img/user.jpg" alt="User picture">
-        </div>
-        <div class="user-info">
-          <span class="user-name">Jhon
-            <strong>Smith</strong>
-          </span>
-          <span class="user-role">Administrator</span>
-          <span class="user-status">
-            <i class="fa fa-circle"></i>
-            <span>Online</span>
-          </span>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="user-pic">
+                  <img class="img-responsive img-rounded" src="assets/img/ali.jpg" alt="User picture">
+                </div>
+              </div>
+              <div class="col-md-8 text-left">
+                <div class="user-info">
+                  <span class="user-name">Abdelali
+                    <strong>EL BAHLOUL</strong>
+                  </span>
+                  <span class="user-role">Administrator</span>
+                  <span class="user-status">
+                    <i class="fa fa-circle"></i>
+                    <span>Online</span>
+                  </span>
+                </div>
+              </div>
         </div>
       </div>
       <div class="sidebar-search">
@@ -35,15 +41,15 @@
         <ul>
           <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}">
             <span *ngIf="menu.type === 'header'">{{ menu.title }}</span>
-            <a *ngIf="menu.type !== 'header'" (click)='toggle(menu)'>
+            <a routerLink="{{ menu.link }}" *ngIf="menu.type !== 'header'" (click)='toggle(menu)'>
               <i class="{{ menu.icon }}"></i>
               <span>{{ menu.title }}</span>
               <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{ menu.badge.text }}</span>
             </a>
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
-                <li *ngFor="let submenu of menu.submenus">
-                  <a> {{submenu.title}}
+                <li *ngFor="let submenu of menu.submenus" >
+                  <a routerLink="{{ submenu.link }}"><i class="{{ submenu.icon }}"></i> {{submenu.title}}
                     <span *ngIf="submenu.badge" class="badge badge-pill" [ngClass]="submenu.badge.class">
                       {{ submenu.badge.text }}
                     </span>
@@ -188,7 +194,7 @@
     </div>
     <div>
       <a href="#">
-        <i class="fa fa-power-off"></i>
+        <i class="fa fa-sign-out"></i>
       </a>
     </div>
   </div>

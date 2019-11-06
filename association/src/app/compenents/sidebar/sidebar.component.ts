@@ -16,6 +16,8 @@ import { SidebarService } from './sidebar.service';
   ]
 })
 export class SidebarComponent implements OnInit {
+
+  userImage = "";
   menus = [];
   constructor(private sidebarservice: SidebarService) {
     this.menus = sidebarservice.getMenuList();
