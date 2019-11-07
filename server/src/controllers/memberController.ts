@@ -8,7 +8,7 @@ class MemeberController {
      * get all memebers
      */
     public index(req: Request,res: Response) {
-        Member.find().select('_id fullName email created_at updated_at').populate(' role ', ' _id name ')
+        Member.find().select('_id fullName role email created_at updated_at')
             .exec()
             .then( docs => {
                 // console.log(docs);

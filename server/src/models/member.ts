@@ -12,8 +12,8 @@ const memberSchema = new Schema({
         unique: true
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MemberRule',
+        type: String,
+        // ref: 'MemberRule',
         required: true
     },
     email: { 

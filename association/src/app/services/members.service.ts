@@ -14,4 +14,7 @@ export class MembersService {
   _getAll(){
     return this.http.get<Member[]>(`${this.apiMembers}/members`)
   }
+  _persist(member){
+    return this.http.post(`${this.apiMembers}/members`,member);
+  }
 }
