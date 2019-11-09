@@ -16,7 +16,9 @@ import { NotFoundComponent } from './compenents/not-found/not-found.component';
 import { HomeComponent } from './compenents/home/home.component';
 import { SidebarComponent } from './compenents/sidebar/sidebar.component';
 import { AddMemberComponent } from './compenents/add-member/add-member.component';
-import { ToastrService } from './services/toastr.service';
+// import { ToastrService } from './services/toastr.service';
+ 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -36,11 +38,11 @@ import { ToastrService } from './services/toastr.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
-    HttpClientModule,
-    ToastrService
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })
