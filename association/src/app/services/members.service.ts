@@ -17,4 +17,7 @@ export class MembersService {
   _persist(member){
     return this.http.post(`${this.apiMembers}/members`,member);
   }
+  _delete(id){
+    return this.http.delete(`${this.apiMembers}/members/${id}`);
+  }
 }

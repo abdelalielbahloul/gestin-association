@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MembersService } from 'src/app/services/members.service';
 import { Member } from 'src/app/models/member';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-members',
@@ -12,7 +13,7 @@ export class MembersComponent implements OnInit {
   count: Number = 0;
   members: Member[] = [];
 
-  constructor( private memberService: MembersService ) { }
+  constructor( private memberService: MembersService, private toastr: ToastrService ) { }
 
   ngOnInit() {
     this.getAll()
@@ -24,6 +25,15 @@ export class MembersComponent implements OnInit {
         this.members = res;   
         this.count = this.members.length;
              
+      })
+  }
+
+  delete(id){
+    this.memberService._delete(id)
+      .subscribe( () => {
+        this.members = this.members.filter( member => member._id != id);
+        this.toastr.success('member was deleted successfully!', 'Success!');
+        this.getAll();
       })
   }
 
