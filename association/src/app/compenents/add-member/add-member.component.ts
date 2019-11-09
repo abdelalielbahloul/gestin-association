@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Member } from 'src/app/models/member';
 import { MembersService } from 'src/app/services/members.service';
+import { ToastrService } from 'src/app/services/toastr.service';
+import { Toastr } from 'src/app/models/toastr';
 
 @Component({
   selector: 'app-add-member',
@@ -9,6 +11,7 @@ import { MembersService } from 'src/app/services/members.service';
 })
 export class AddMemberComponent implements OnInit {
 
+  
   newMember: Member = {
     fullName: '',
     role: '',
@@ -16,7 +19,7 @@ export class AddMemberComponent implements OnInit {
     email: ''
   }
 
-  constructor( private memberService: MembersService) { }
+  constructor( private memberService: MembersService, private toastrService: ToastrService) { }
 
   ngOnInit() {
   }
@@ -25,8 +28,12 @@ export class AddMemberComponent implements OnInit {
     this.memberService._persist(this.newMember)
       .subscribe( res => {
         console.log(res);
-        this.reset();
-        
+        // const toastr: Toastr = {
+        //   title: 'added!',
+        //   body: res.toString()
+        // }
+        this.toastrService._success('added', res[0]);
+
       },err => {
         console.log(err);
         

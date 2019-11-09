@@ -16,6 +16,7 @@ import { NotFoundComponent } from './compenents/not-found/not-found.component';
 import { HomeComponent } from './compenents/home/home.component';
 import { SidebarComponent } from './compenents/sidebar/sidebar.component';
 import { AddMemberComponent } from './compenents/add-member/add-member.component';
+import { ToastrService } from './services/toastr.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,10 @@ import { AddMemberComponent } from './compenents/add-member/add-member.component
     HttpClientModule,
     FormsModule
   ],
-  providers: [HttpClientModule],
+  providers: [
+    HttpClientModule,
+    ToastrService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
