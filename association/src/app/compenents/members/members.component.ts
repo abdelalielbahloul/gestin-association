@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 })
 export class MembersComponent implements OnInit {
 
+  show = false;
   count: Number = 0;
   members: Member[] = [];
 
@@ -25,6 +26,11 @@ export class MembersComponent implements OnInit {
       .subscribe( res => {
         this.members = res;   
         this.count = this.members.length;
+        if(this.count > 0){
+          this.show = true;
+          // console.log(this.count);
+          
+        }
              
       })
   }
@@ -42,6 +48,7 @@ export class MembersComponent implements OnInit {
         this.memberService._delete(id)
         .subscribe( () => {
           this.members = this.members.filter( member => member._id != id);
+          this.getAll();
         })
         this.toastr.success('Member was deleted successfully!', 'Success!');
       } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -52,7 +59,6 @@ export class MembersComponent implements OnInit {
         )
       }
     });
-    this.getAll();
   }
 
 }

@@ -7,36 +7,46 @@
     </div>
 </div>
 <hr>
+
 <div class="list-members">
     <div class="row my-3">
         <div class="col-md-12 text-right">Count:
             <span class="badge badge-warning"> {{ count }} </span>
         </div>
     </div>
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>Full name</th>
-                <th>Role</th>
-                <th>Email</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let member of members">
-                <td scope="row"> {{ member.fullName }} </td>
-                <td> {{ member.role }} </td>
-                <td> {{ member.email }} </td>
-                <td>
-                    <button class="btn btn-warning btn-sm mr-2">
-                        <i class="fa fa-pencil"></i>
-                    </button>
-                    <button (click)="delete(member._id)" class="btn btn-danger btn-sm">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
+    <div >
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Full name</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let member of members">
+                    <td scope="row"> {{ member.fullName }} </td>
+                    <td> {{ member.role }} </td>
+                    <td> {{ member.email }} </td>
+                    <td>
+                        <button class="btn btn-warning btn-sm mr-2">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button (click)="delete(member._id)" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </div>
+<!-- {{ show | json }} -->
+<!-- <ng-template #notShow>
+    <div class="alert alert-warning text-center" role="alert">
+        <strong>No member yet</strong>
+    </div> -->
+<!-- </ng-template> -->
