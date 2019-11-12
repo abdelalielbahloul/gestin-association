@@ -28,7 +28,7 @@ export class AddMemberComponent implements OnInit {
     this.memberService._persist(this.newMember)
       .subscribe( res => {
         this.toastr.success('Member created successufuly', 'success');
-
+        this.reset();
       },err => {
         this.toastr.error('Member not created an error has occured', 'error!')
         console.log(err);
