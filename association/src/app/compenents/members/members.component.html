@@ -7,7 +7,13 @@
     </div>
 </div>
 <hr>
-
+ <div class="row my-3 mx-auto">
+     <div class="col-md-2"></div>
+     <div class="col-md-8">
+         <input type="text" id="search" placeholder="Search..." [(ngModel)]="textSearch" class="form-control" (keyup)="search()">
+     </div>
+     <div class="col-md-2"></div>
+ </div>
 <div class="list-members">
     <div class="row my-3">
         <div class="col-md-12 text-right">Count:
@@ -25,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let member of members">
+                <tr *ngFor="let member of resultMember">
                     <td scope="row"> {{ member.fullName }} </td>
                     <td> {{ member.role }} </td>
                     <td> {{ member.email }} </td>

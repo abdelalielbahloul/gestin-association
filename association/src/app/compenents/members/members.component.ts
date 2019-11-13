@@ -14,6 +14,8 @@ export class MembersComponent implements OnInit {
   show = false;
   count: Number = 0;
   members: Member[] = [];
+  resultMember: Member[] = [];
+  textSearch = '';
 
   constructor( private memberService: MembersService, private toastr: ToastrService ) { }
 
@@ -24,7 +26,7 @@ export class MembersComponent implements OnInit {
   getAll(){
     this.memberService._getAll()
       .subscribe( res => {
-        this.members = res;   
+        this.resultMember = this.members = res;   
         this.count = this.members.length;
         if(this.count > 0){
           this.show = true;
@@ -47,7 +49,7 @@ export class MembersComponent implements OnInit {
       if (result.value) {
         this.memberService._delete(id)
         .subscribe( () => {
-          this.members = this.members.filter( member => member._id != id);
+          this.resultMember = this.members.filter( member => member._id != id);
           this.getAll();
         })
         this.toastr.success('Member was deleted successfully!', 'Success!');
@@ -61,4 +63,14 @@ export class MembersComponent implements OnInit {
     });
   }
 
+  search(){
+    this.resultMember = this.members.filter( (member) => {
+      member.cin.toLowerCase().includes(this.textSearch.toLowerCase())
+      || member.email.toLowerCase().includes(this.textSearch.toLowerCase()) 
+      || member.fullName.toLowerCase().includes(this.textSearch.toLowerCase()) 
+      || member.role.toLowerCase().includes(this.textSearch.toLowerCase())
+    })
+  }
+
 }
+

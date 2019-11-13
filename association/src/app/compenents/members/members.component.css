@@ -1,3 +1,7 @@
 #helpId{
     text-align: center;
 }
+#search{
+    border: none !important;
+    font-family: 'Arial black', Helvetica, sans-serif;
+}
