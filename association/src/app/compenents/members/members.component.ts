@@ -64,12 +64,21 @@ export class MembersComponent implements OnInit {
   }
 
   search(){
-    this.resultMember = this.members.filter( (member) => {
-      member.cin.toLowerCase().includes(this.textSearch.toLowerCase())
-      || member.email.toLowerCase().includes(this.textSearch.toLowerCase()) 
-      || member.fullName.toLowerCase().includes(this.textSearch.toLowerCase()) 
-      || member.role.toLowerCase().includes(this.textSearch.toLowerCase())
-    })
+    this.resultMember = this.members.filter( member =>
+      member.fullName.toLocaleUpperCase()
+        .includes(
+          this.textSearch.toLocaleUpperCase()
+        )
+      || member.email.toLocaleUpperCase()
+          .includes(
+            this.textSearch.toLocaleUpperCase()
+          )
+      || member.role.toLocaleUpperCase()
+          .includes(
+            this.textSearch.toLocaleUpperCase()
+          )
+    )
+    this.count = this.resultMember.length;
   }
 
 }

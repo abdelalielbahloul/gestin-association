@@ -7,16 +7,14 @@
     </div>
 </div>
 <hr>
- <div class="row my-3 mx-auto">
-     <div class="col-md-2"></div>
-     <div class="col-md-8">
-         <input type="text" id="search" placeholder="Search..." [(ngModel)]="textSearch" class="form-control" (keyup)="search()">
-     </div>
-     <div class="col-md-2"></div>
- </div>
+
 <div class="list-members">
     <div class="row my-3">
-        <div class="col-md-12 text-right">Count:
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <input type="text" id="search" placeholder="Search..." [(ngModel)]="textSearch" class="form-control" (keyup)="search()">
+        </div>
+        <div class="col-md-5 text-right">Count:
             <span class="badge badge-warning"> {{ count }} </span>
         </div>
     </div>
@@ -26,6 +24,7 @@
                 <tr>
                     <th>Full name</th>
                     <th>Role</th>
+                    <th>CIN</th>
                     <th>Email</th>
                     <th></th>
                 </tr>
@@ -34,6 +33,7 @@
                 <tr *ngFor="let member of resultMember">
                     <td scope="row"> {{ member.fullName }} </td>
                     <td> {{ member.role }} </td>
+                    <td> {{ member.cin }} </td>
                     <td> {{ member.email }} </td>
                     <td>
                         <button class="btn btn-warning btn-sm mr-2">
